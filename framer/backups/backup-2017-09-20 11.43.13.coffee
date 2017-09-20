@@ -30,13 +30,14 @@ grey2 = "#999999"
 grey3 = "#eeeeee"
 blue = "#183051"
 white = "#ffffff"
-#ScreenA-btnA
-screenA = new Layer
+#ScreenB-btnB
+screenB = new Layer
 	width: Screen.width
 	height: Screen.height
 	backgroundColor: white
+	index:1
 	parent: flow
-	index:2
+
 #Button components - A
 buttonBox = new Layer
 	y: Screen.height-60
@@ -47,7 +48,7 @@ buttonBox = new Layer
 	shadowColor: "rgba(51,51,51,0.1)"
 	shadowY: -2
 	shadowBlur: 4
-	parent: screenA
+	parent: screenB
 	index: 2
 buttonBox.states.add
 	hide:
@@ -112,20 +113,19 @@ btnStartText.states.add
 		x: Align.center(-14)
 #Events
 btnStart.onClick ->
-	flow.showNext(screenB)
+	flow.showNext(screenA)
 	page.parent = PageBg
 	Welcomes[0].visible=true
 	optionAnimation1.start()
 	optionAnimation2.start()
-#screenB - btnB
-screenB = new Layer
+#screenA - btnA
+screenA = new Layer
 	width: Screen.width
 	height: Screen.height
 	backgroundColor: "#fff"
 	parent: flow
-	index:1
+	index:2
 	x: 375
-
 #Button components - B
 BbuttonBox = new Layer
 	y: Screen.height-60
@@ -137,7 +137,7 @@ BbuttonBox = new Layer
 	shadowY: -2
 	shadowBlur: 4
 	index:1
-	parent: screenB
+	parent: screenA
 BbuttonBox.states.add
 	hide:
 		visible:false
@@ -149,9 +149,9 @@ btnSummary = new Layer
 	height: BbuttonBox.height
 	backgroundColor: "rgba(255,255,255,1)"
 btnSummary.onClick ->
-	flow.showNext(screenA)
-	page.parent = stepScroll.content
-
+	flow.showNext(screenB)
+	PageBg.parent = stepScroll.content
+	
 btnSummaryText = new TextLayer
 	parent: btnSummary
 	x: Align.center()
@@ -186,7 +186,7 @@ btnNextText.states.add
 		x: 45
 
 OptionBg = new Layer
-	parent: screenB
+	parent: screenA
 	width: 375
 	height: 140
 	y: 465
@@ -195,14 +195,14 @@ OptionBg = new Layer
 	backgroundColor: "#fafafa"
 
 PageBg2 = new Layer
-	parent: screenB
+	parent: screenA
 	width: 375
 	height: 463
 	index:0
 	backgroundColor: "#fafafa"
 	
 PageBg = new Layer
-	parent: screenB
+	parent: screenA
 	width: 375
 	height: 375
 	y:20
@@ -244,9 +244,16 @@ btnNext.onClick ->
 		Welcomes[4].text = "select monogram 5/6"
 		optionAnimation9.start()
 		optionAnimation10.start()
+
+screenA.on Events.AnimationStart, ->
+	page.parent = PageBg
+	Welcomes[0].visible=true
+	optionAnimation1.start()
+	optionAnimation2.start()
+	
 #stepScroll
 stepScroll = new ScrollComponent
-	parent: screenA
+	parent: screenB
 	y: 0
 	width: Screen.width
 	height: Screen.height
@@ -266,7 +273,7 @@ cardimages = [
 	]
 
 page = new PageComponent
-	parent: stepScroll.content
+	parent: screenA
 	width: 375
 	height: 375
 	scrollVertical: false
@@ -842,14 +849,14 @@ flow.showNext(screenA)
 
 #go to nextpage
 lists[0].onTap ->
-	flow.showNext(screenB)
+	flow.showNext(screenA)
 	page.parent = PageBg
 	optionAnimation1.start()
 	optionAnimation2.start()
 	Welcomes[0].visible = true
 lists[0].onTap ->
 	if selections[0].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		scrollFabric.visible = true
 		scrollFit.visible = false
@@ -859,7 +866,7 @@ lists[0].onTap ->
 
 lists[1].onTap ->
 	if selections[0].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		optionAnimation3.start()
 		optionAnimation4.start()
@@ -869,7 +876,7 @@ lists[1].onTap ->
 		scrollFit.visible = true
 lists[1].onTap ->
 	if selections[1].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		scrollFabric.visible = false
 		scrollFit.visible = true
@@ -879,7 +886,7 @@ lists[1].onTap ->
 
 lists[2].onTap ->
 	if selections[1].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		optionAnimation5.start()
 		optionAnimation6.start()
@@ -889,7 +896,7 @@ lists[2].onTap ->
 		scrollCollar.visible = true
 lists[2].onTap ->
 	if selections[2].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		scrollFabric.visible = false
 		scrollFit.visible = false
@@ -899,7 +906,7 @@ lists[2].onTap ->
 
 lists[3].onTap ->
 	if selections[2].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		optionAnimation7.start()
 		optionAnimation8.start()
@@ -909,7 +916,7 @@ lists[3].onTap ->
 		scrollCuff.visible = true
 lists[3].onTap ->
 	if selections[3].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		scrollFabric.visible = false
 		scrollFit.visible = false
@@ -919,7 +926,7 @@ lists[3].onTap ->
 
 lists[4].onTap ->
 	if selections[3].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		optionAnimation9.start()
 		optionAnimation10.start()
@@ -929,7 +936,7 @@ lists[4].onTap ->
 		scrollMonogram.visible = true
 lists[4].onTap ->
 	if selections[4].visible == true
-		flow.showNext(screenB)
+		flow.showNext(screenA)
 		page.parent = PageBg
 		scrollFabric.visible = false
 		scrollFit.visible = false
@@ -946,43 +953,27 @@ class Card extends Layer
 		options.width = 265
 		options.height = 120
 		super options
-
 		background = new Layer
 			parent: @
 			size: @.size
-			backgroundColor: "#fffff"
+			backgroundColor: "#ffffff"
 			borderWidth = 0
-			shadowY = 1
-			shadowBlur = 2
-			borderRadius = 4
-		background.states.add
-			open: 
-				width: Screen.width - 20 
-				height: Screen.height - 20 
+
 		photo = new Layer
 			parent: @
 			size: @.height
-			backgroundColor: "#D9D9D9"
 			image: options.photo
-		photo.states.add
-			open: 
-				width: Screen.width - 20
-				height: 355
 		titled = new Layer
 			parent: @
 			x: @.height + 20
 			y: 10
 			width: 105
-			backgroundColor: ""
+			backgroundColor: null
 			html: options.title
 			color: "#183051" 
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
-		titled.states.add
-			open: 
-				x: 20 
-				y: 355 + 20
 		price = new Layer
 			parent: @
 			x: @.height + 20
@@ -994,10 +985,6 @@ class Card extends Layer
 			style: 
 				"font-size":"14px"
 			clip: true
-		price.states.add
-			open: 
-				x: 20
-				y: 400
 		infoIcon = new Layer
 			parent: @
 			x: @.width - 30
@@ -1006,6 +993,112 @@ class Card extends Layer
 			width: 20
 			image: "images/icon_i.svg"
 			visible: true
+#Overlay
+		TitleOverlay = new Layer
+			x: 20
+			y: 390 + 10
+			width: 375
+			opacity:0
+			backgroundColor:null
+			html: options.title
+			color: "#183051" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		TitleOverlay.states.add
+			active:
+				opacity:1
+				y: 390
+		PriceOverlay = new Layer
+			x: 20
+			y: 420 + 10
+			width: 375
+			opacity : 0
+			backgroundColor:null
+			html: options.price
+			color: "#3376c9" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		PriceOverlay.states.add
+			active:
+				opacity:1
+				y:420
+		DescriptionOverlay = new Layer
+			x: 20
+			y: 450 + 10
+			opacity : 0
+			width: 335
+			backgroundColor:null
+			html: options.description
+			color: "#999999" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		DescriptionOverlay.states.add
+			active:
+				opacity:1
+				y:450
+		infoIcon.on Events.Click, (ignoreParent) ->
+			ignoreParent.stopPropagation()
+			TitleOverlay.visible = true
+			PriceOverlay.visible = true
+			DescriptionOverlay.visible = true
+			TitleOverlay.states.next("active")
+			PriceOverlay.states.next("active")
+			DescriptionOverlay.states.next("active")
+			currentImage = photo.copy()
+			currentBg = background.copy()
+			currentImage.frame = photo.screenFrame
+			currentBg.frame = background.screenFrame
+			photo.visible = false
+			background.visible = false
+			currentImage.animate
+				properties:
+					width:375
+					height:375
+					x:0
+					y:0
+					options:
+						time: 0.3
+			currentBg.animate
+				properties:
+					width:375
+					height:667
+					x:0
+					y:0
+					options:
+						time:0.3
+			#Return
+			currentImage.on Events.Click, (ignoreParent) ->
+				ignoreParent.stopPropagation()
+				TitleOverlay.visible = false
+				PriceOverlay.visible = false
+				DescriptionOverlay.visible = false
+				TitleOverlay.states.next("default")
+				PriceOverlay.states.next("default")
+				DescriptionOverlay.states.next("default")
+				currentImage.animate
+					properties:
+						width:120
+						height:120
+						x:photo.screenFrame.x
+						y:photo.screenFrame.y
+						options:
+							time: 0.3
+				currentBg.animate
+					properties:
+						width:265
+						height:120
+						x:background.screenFrame.x
+						y:background.screenFrame.y
+						options:
+							time:0.3
+				this.on Events.AnimationEnd, ->
+					photo.visible = true
+					currentImage.destroy()
+					background.visible = true
+					currentBg.destroy()
 
 class Card2 extends Layer
 	constructor: (options={}) ->
@@ -1031,7 +1124,43 @@ class Card2 extends Layer
 gutter = 10
 width = 265
 cards = []
-
+#Option pages
+updateList = ->
+	if lists[0].height==90 && lists[1].height!=90 && lists[2].height!=90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state2")
+		lists[1].y = 90 + 2 
+		lists[2].y = 90 + 60 + 4
+		lists[3].y = 90 + 60 + 60 + 6
+		lists[4].y = 90 + 60 + 60 + 60 + 8
+		btnStartText.text = "Next step"
+		btnStartText.x = Align.center()
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height!=90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state3")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state4")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height==90 && lists[4].height!=90
+		stepList.states.switch("state5")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height==90 && lists[4].height==90
+		stepList.states.switch("state6")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		btnStartText.text = "Add to bag"
+		btnStartText.x = Align.center()
+		btnNextText.text = "Select size"
 
 
 #Fabric
@@ -1055,6 +1184,7 @@ fabricContent =  (fabricParent, fabricType, fabricTitle, fabricPrice, fabricDesc
 				x: i * (width + gutter)
 				title: fabricTitle[i]
 				price: fabricPrice[i]
+				description: fabricsDescription[i]
 				photo: "images/#{fabricType}/#{i+1}.jpg"
 			cards.push(cardA)
 			cardA.onClick ->
@@ -1072,29 +1202,16 @@ fabricContent =  (fabricParent, fabricType, fabricTitle, fabricPrice, fabricDesc
 					cardimages[2].image = "images/backs/#{i+1}.jpg"
 fabricContent(scrollFabric.content, "fabrics", fabricsTitle, fabricsPrice, fabricsDescription)
 
-updateList.onClick ->
-	if lists[0].height == 90
-		stepList.states.switch("state2")
-		lists[1].y = 90 + 2 
-		lists[2].y = 90 + 60 + 4
-		lists[3].y = 90 + 60 + 60 + 6
-		lists[4].y = 90 + 60 + 60 + 60 + 8
-
 #CHANGING STEPLIST BASED UPON SELECTED OPTIONS
 scrollFabric.onClick ->
 	if btnNext.backgroundColor.isEqual(grey3)
 	else
-		updateList()
 		lists[0].height = 90
 		selections[0].visible = true
 		prices[0].visible = true
 		checkIcons[0].visible = true
-# 		stepList.states.switch("state2")
-# 		lists[1].y = 90 + 2
-# 		lists[2].y = 90 + 60 + 4
-# 		lists[3].y = 90 + 60 + 60 + 6
-# 		lists[4].y = 90 + 60 + 60 + 60 + 8
 		titles[1].states.switch("active")
+		updateList()
 #Fit
 scrollFit = new ScrollComponent
 	x: 375
@@ -1116,9 +1233,10 @@ fitContent =  (fitParent, fitType, fitTitle, fitDescription) ->
 				parent: scrollFit.content
 				x: i * (width + gutter)
 				title: fitTitle[i]
+				description: fitDescription[i]
 				photo: "images/#{fitType}/#{i+1}.jpg"
 			cards.push(cardA)
-			cardA.onClick ->
+			cardA.onTap ->
 					for cardA in cards
 						@.borderWidth = 1
 						cardA.borderWidth = 0
@@ -1137,12 +1255,8 @@ scrollFit.onClick ->
 		lists[1].height = 90
 		selections[1].visible = true
 		checkIcons[1].visible = true
-		stepList.states.switch("state3")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30
 		titles[2].states.switch("active")
+		updateList()
 
 #Collar
 scrollCollar = new ScrollComponent
@@ -1165,6 +1279,7 @@ collarContent =  (collarParent, collarType, collarTitle, collarDescription) ->
 				parent: scrollCollar.content
 				x: i * (width + gutter)
 				title: collarTitle[i]
+				description: collarsDescription[i]
 				photo: "images/#{collarType}/#{i+1}.jpg"
 			cards.push(cardA)
 			cardA.onClick ->
@@ -1186,12 +1301,8 @@ scrollCollar.onClick ->
 		lists[2].height = 90
 		selections[2].visible = true
 		checkIcons[2].visible = true
-		stepList.states.switch("state4")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30
 		titles[3].states.switch("active")
+		updateList()
 
 #Cuff
 scrollCuff = new ScrollComponent
@@ -1214,6 +1325,7 @@ cuffContent =  (cuffParent, cuffType, cuffTitle, cuffDescription) ->
 				parent: scrollCuff.content
 				x: i * (width + gutter)
 				title: cuffTitle[i]
+				description: cuffsDescription[i]
 				photo: "images/#{cuffType}/#{i+1}.jpg"
 			cards.push(cardA)
 			cardA.onClick ->
@@ -1235,12 +1347,8 @@ scrollCuff.onClick ->
 		lists[3].height = 90
 		selections[3].visible = true
 		checkIcons[3].visible = true
-		stepList.states.switch("state5")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
 		titles[4].states.switch("active")
+		updateList()
 
 #Monogram
 scrollMonogram = new ScrollComponent
@@ -1291,11 +1399,7 @@ scrollMonogram.onClick ->
 		lists[4].height = 90
 		selections[4].visible = true
 		checkIcons[4].visible = true
-		stepList.states.switch("state6")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		updateList()
 		
 #welcome animationiWx:1
 Welcomes=[]

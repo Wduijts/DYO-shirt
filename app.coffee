@@ -1132,6 +1132,8 @@ updateList = ->
 		lists[2].y = 90 + 60 + 4
 		lists[3].y = 90 + 60 + 60 + 6
 		lists[4].y = 90 + 60 + 60 + 60 + 8
+		btnStartText.text = "Next step"
+		btnStartText.x = Align.center()
 	else if lists[0].height==90 && lists[1].height==90 && lists[2].height!=90 && lists[3].height!=90 && lists[4].height!=90
 		stepList.states.switch("state3")
 		lists[1].y = 90 + 2
@@ -1156,6 +1158,9 @@ updateList = ->
 		lists[2].y = 90 + 60 + 4 + 30
 		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
 		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		btnStartText.text = "Add to bag"
+		btnStartText.x = Align.center()
+		btnNextText.text = "Select size"
 
 
 #Fabric

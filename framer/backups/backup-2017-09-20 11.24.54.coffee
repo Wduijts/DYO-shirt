@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+# test line 1,2,3,4,5,6, Moon
+=======
+# test line 1 Wouter
+>>>>>>> be3e73991f0fabce3e5fe15f54af5a202b9e5aa3
+
 #BASIC SETTINGS
 Info = require "Info"
 {InputField} = require 'InputField'
@@ -252,13 +258,7 @@ btnNext.onClick ->
 		flow.showNext(screenA)
 		page.parent = stepScroll.content
 		print "Adf"
-#Flow comp
-flow = new FlowComponent
-	width: screen.width
-	height: Screen.height
-	backgroundColor: null
-# 	index:1
-flow.showNext(screenA)
+
 #stepScroll
 stepScroll = new ScrollComponent
 	parent: screenA
@@ -942,6 +942,13 @@ lists[4].onTap ->
 		scrollCollar.visible = false
 		scrollCuff.visible = false
 		scrollMonogram.visible = true
+#Flow comp
+flow = new FlowComponent
+	width: screen.width
+	height: Screen.height
+	backgroundColor: null
+# 	index:1
+flow.showNext(screenA)
 #CREATE CARD CLASS
 class Card extends Layer
 	constructor: (options={}) ->

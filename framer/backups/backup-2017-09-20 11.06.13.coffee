@@ -1,3 +1,5 @@
+# test line 1
+
 #BASIC SETTINGS
 Info = require "Info"
 {InputField} = require 'InputField'
@@ -36,7 +38,7 @@ screenA = new Layer
 	height: Screen.height
 	backgroundColor: white
 	parent: flow
-	index:2
+# 	index:2
 #Button components - A
 buttonBox = new Layer
 	y: Screen.height-60
@@ -123,7 +125,7 @@ screenB = new Layer
 	height: Screen.height
 	backgroundColor: "#fff"
 	parent: flow
-	index:1
+# 	index:1
 	x: 375
 
 #Button components - B
@@ -253,12 +255,6 @@ btnNext.onClick ->
 		page.parent = stepScroll.content
 		print "Adf"
 
-flow = new FlowComponent
-	width: screen.width
-	height: Screen.height
-	backgroundColor: null
-	index:1
-flow.showNext(screenA)
 #stepScroll
 stepScroll = new ScrollComponent
 	parent: screenA
@@ -942,6 +938,13 @@ lists[4].onTap ->
 		scrollCollar.visible = false
 		scrollCuff.visible = false
 		scrollMonogram.visible = true
+#Flow comp
+flow = new FlowComponent
+	width: screen.width
+	height: Screen.height
+	backgroundColor: null
+# 	index:1
+flow.showNext(screenA)
 #CREATE CARD CLASS
 class Card extends Layer
 	constructor: (options={}) ->

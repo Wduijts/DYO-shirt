@@ -1,3 +1,5 @@
+# test line 1 Wouter
+
 #BASIC SETTINGS
 Info = require "Info"
 {InputField} = require 'InputField'
@@ -942,7 +944,7 @@ flow = new FlowComponent
 	height: Screen.height
 	backgroundColor: null
 # 	index:1
-flow.showNext(screenB)
+flow.showNext(screenA)
 #CREATE CARD CLASS
 class Card extends Layer
 	constructor: (options={}) ->

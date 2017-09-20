@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_i</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="M-shirt-7" transform="translate(-260.000000, -467.000000)">
+            <g id="Group-147" transform="translate(-1900.000000, 377.000000)">
+                <g id="Group-134" transform="translate(1925.000000, 0.000000)">
+                    <g id="Group-11-Copy-22">
+                        <g id="icon_i" transform="translate(235.000000, 90.000000)">
+                            <path d="M10,0 C4.477,0 0,4.477 0,10 C0,15.523 4.477,20 10,20 C15.523,20 20,15.523 20,10 C20,4.477 15.523,0 10,0 M10,1 C14.963,1 19,5.037 19,10 C19,14.963 14.963,19 10,19 C5.037,19 1,14.963 1,10 C1,5.037 5.037,1 10,1" id="fabric-5-4" fill="#999999"></path>
+                            <path d="M11.2678,6.0893 C11.2678,6.7893 10.6998,7.3573 9.9998,7.3573 C9.2998,7.3573 8.7318,6.7893 8.7318,6.0893 C8.7318,5.3893 9.2998,4.8213 9.9998,4.8213 C10.6998,4.8213 11.2678,5.3893 11.2678,6.0893" id="fabric-5-3" fill="#999999"></path>
+                            <path d="M9.9999,9.897 L9.9999,14.897" id="fabric-5-2" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

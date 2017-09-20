@@ -150,7 +150,7 @@ btnSummary = new Layer
 	backgroundColor: "rgba(255,255,255,1)"
 btnSummary.onClick ->
 	flow.showNext(screenB)
-	PageBg.parent = stepScroll.content
+	PageBg.parent = PageBg	
 	
 btnSummaryText = new TextLayer
 	parent: btnSummary
@@ -250,7 +250,6 @@ screenA.on Events.AnimationStart, ->
 	Welcomes[0].visible=true
 	optionAnimation1.start()
 	optionAnimation2.start()
-	
 #stepScroll
 stepScroll = new ScrollComponent
 	parent: screenB
@@ -846,7 +845,6 @@ flow = new FlowComponent
 	backgroundColor: null
 	index:1
 flow.showNext(screenA)
-
 #go to nextpage
 lists[0].onTap ->
 	flow.showNext(screenA)

@@ -1,4 +1,4 @@
-# test line 1,2,3,4,5,6, Moon
+# test line 1,2,3,4,5,6, Moonn & Wouter
 
 #BASIC SETTINGS
 Info = require "Info"

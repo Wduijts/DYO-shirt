@@ -1,4 +1,4 @@
-# test line 1,2,3,4,5,6, 7
+# test line 1
 
 #BASIC SETTINGS
 Info = require "Info"

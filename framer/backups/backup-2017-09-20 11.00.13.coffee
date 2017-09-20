@@ -1,3 +1,5 @@
+# test line 1,2,3,4,5,6, 7
+
 #BASIC SETTINGS
 Info = require "Info"
 {InputField} = require 'InputField'
@@ -36,7 +38,7 @@ screenA = new Layer
 	height: Screen.height
 	backgroundColor: white
 	parent: flow
-	index:2
+# 	index:2
 #Button components - A
 buttonBox = new Layer
 	y: Screen.height-60
@@ -102,14 +104,14 @@ btnStartText = new TextLayer
 	color: white
 	fontFamily: "Roboto Condensed"
 	fontWeight: 400
-btnStartText.states.add
-	atb:
-		text: "ADD TO BAG"
-		x: 45
-	nextstep:
-		text: "NEXT STEP"
-		color: "#183051"
-		x: Align.center(-14)
+# btnStartText.states.add
+# 	atb:
+# 		text: "ADD TO BAG"
+# 		x: 45
+# 	nextstep:
+# 		text: "NEXT STEP"
+# 		color: "#183051"
+# 		x: Align.center(-14)
 #Events
 btnStart.onClick ->
 	flow.showNext(screenB)
@@ -123,7 +125,7 @@ screenB = new Layer
 	height: Screen.height
 	backgroundColor: "#fff"
 	parent: flow
-	index:1
+# 	index:1
 	x: 375
 
 #Button components - B
@@ -244,6 +246,15 @@ btnNext.onClick ->
 		Welcomes[4].text = "select monogram 5/6"
 		optionAnimation9.start()
 		optionAnimation10.start()
+
+btnNext.onClick ->
+	if selections[4].visible == true
+		scrollCuff.visible = false
+		sizePage.stateCycle("open")
+		flow.showNext(screenA)
+		page.parent = stepScroll.content
+		print "Adf"
+
 #stepScroll
 stepScroll = new ScrollComponent
 	parent: screenA
@@ -633,9 +644,7 @@ for i in [0...row]
 				"fontFamily": "Roboto Condensed"
 				"fontWeight": "300"
 				"fontSize": "14px"
-				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"lineHeight":"100px"
 
 		cell2 = new Layer
 			width: Screen.width/2
@@ -653,9 +662,7 @@ for i in [0...row]
 				"fontFamily": "Roboto Condensed"
 				"fontWeight": "300"
 				"fontSize": "14px"
-				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"lineHeight":"100px"
 			
 		#pushing cell in cells array 
 		cells.push(cell)
@@ -833,12 +840,7 @@ for i in [0...5]
 			checkIcon: checkIcons[i]
 titles[0].states.switch("active")
 
-flow = new FlowComponent
-	width: screen.width
-	height: Screen.height
-	backgroundColor: null
-	index:1
-flow.showNext(screenA)
+
 
 #go to nextpage
 lists[0].onTap ->
@@ -936,6 +938,13 @@ lists[4].onTap ->
 		scrollCollar.visible = false
 		scrollCuff.visible = false
 		scrollMonogram.visible = true
+#Flow comp
+flow = new FlowComponent
+	width: screen.width
+	height: Screen.height
+	backgroundColor: null
+# 	index:1
+flow.showNext(screenA)
 #CREATE CARD CLASS
 class Card extends Layer
 	constructor: (options={}) ->
@@ -1031,7 +1040,45 @@ class Card2 extends Layer
 gutter = 10
 width = 265
 cards = []
-
+#Option pages
+updateList = ->
+	if lists[0].height==90 && lists[1].height!=90 && lists[2].height!=90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state2")
+		lists[1].y = 90 + 2 
+		lists[2].y = 90 + 60 + 4
+		lists[3].y = 90 + 60 + 60 + 6
+		lists[4].y = 90 + 60 + 60 + 60 + 8
+		btnStartText.text = "Next step"
+		btnStartText.x = Align.center()
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height!=90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state3")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height!=90 && lists[4].height!=90
+		stepList.states.switch("state4")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height==90 && lists[4].height!=90
+		stepList.states.switch("state5")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+	else if lists[0].height==90 && lists[1].height==90 && lists[2].height==90 && lists[3].height==90 && lists[4].height==90
+		stepList.states.switch("state6")
+		lists[1].y = 90 + 2
+		lists[2].y = 90 + 60 + 4 + 30
+		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		btnStartText.text = "Add to bag"
+		btnStartText.x = Align.center()
+		btnNextText.text = "Select size"
+		
+		
 
 
 #Fabric
@@ -1072,14 +1119,6 @@ fabricContent =  (fabricParent, fabricType, fabricTitle, fabricPrice, fabricDesc
 					cardimages[2].image = "images/backs/#{i+1}.jpg"
 fabricContent(scrollFabric.content, "fabrics", fabricsTitle, fabricsPrice, fabricsDescription)
 
-CHECKON.onClick ->
-	if lists[0].height == 90
-		print "asdf"
-		lists[1].y = 90 + 2 
-		lists[2].y = 90 + 60 + 4
-		lists[3].y = 90 + 60 + 60 + 6
-		lists[4].y = 90 + 60 + 60 + 60 + 8
-
 #CHANGING STEPLIST BASED UPON SELECTED OPTIONS
 scrollFabric.onClick ->
 	if btnNext.backgroundColor.isEqual(grey3)
@@ -1088,12 +1127,8 @@ scrollFabric.onClick ->
 		selections[0].visible = true
 		prices[0].visible = true
 		checkIcons[0].visible = true
-		stepList.states.switch("state2")
-# 		lists[1].y = 90 + 2
-# 		lists[2].y = 90 + 60 + 4
-# 		lists[3].y = 90 + 60 + 60 + 6
-# 		lists[4].y = 90 + 60 + 60 + 60 + 8
 		titles[1].states.switch("active")
+		updateList()
 #Fit
 scrollFit = new ScrollComponent
 	x: 375
@@ -1136,12 +1171,8 @@ scrollFit.onClick ->
 		lists[1].height = 90
 		selections[1].visible = true
 		checkIcons[1].visible = true
-		stepList.states.switch("state3")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30
 		titles[2].states.switch("active")
+		updateList()
 
 #Collar
 scrollCollar = new ScrollComponent
@@ -1185,12 +1216,8 @@ scrollCollar.onClick ->
 		lists[2].height = 90
 		selections[2].visible = true
 		checkIcons[2].visible = true
-		stepList.states.switch("state4")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30
 		titles[3].states.switch("active")
+		updateList()
 
 #Cuff
 scrollCuff = new ScrollComponent
@@ -1234,12 +1261,8 @@ scrollCuff.onClick ->
 		lists[3].height = 90
 		selections[3].visible = true
 		checkIcons[3].visible = true
-		stepList.states.switch("state5")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
 		titles[4].states.switch("active")
+		updateList()
 
 #Monogram
 scrollMonogram = new ScrollComponent
@@ -1290,11 +1313,7 @@ scrollMonogram.onClick ->
 		lists[4].height = 90
 		selections[4].visible = true
 		checkIcons[4].visible = true
-		stepList.states.switch("state6")
-		lists[1].y = 90 + 2
-		lists[2].y = 90 + 60 + 4 + 30
-		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		updateList()
 		
 #welcome animationiWx:1
 Welcomes=[]

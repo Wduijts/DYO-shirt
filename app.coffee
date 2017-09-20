@@ -114,7 +114,8 @@ btnStartText.states.add
 #Events
 btnStart.onClick ->
 	flow.showNext(screenA)
-	page.parent = PageBg
+	PageBg.parent = screenA
+	PageBg.y = 20
 	Welcomes[0].visible=true
 	optionAnimation1.start()
 	optionAnimation2.start()
@@ -150,7 +151,8 @@ btnSummary = new Layer
 	backgroundColor: "rgba(255,255,255,1)"
 btnSummary.onClick ->
 	flow.showNext(screenB)
-	PageBg.parent = PageBg	
+	PageBg.parent = stepScroll.content
+	PageBg.y = -1
 	
 btnSummaryText = new TextLayer
 	parent: btnSummary
@@ -848,14 +850,16 @@ flow.showNext(screenA)
 #go to nextpage
 lists[0].onTap ->
 	flow.showNext(screenA)
-	page.parent = PageBg
+	PageBg.parent = screenA
+	PageBg.y = 20
 	optionAnimation1.start()
 	optionAnimation2.start()
 	Welcomes[0].visible = true
 lists[0].onTap ->
 	if selections[0].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		scrollFabric.visible = true
 		scrollFit.visible = false
 		scrollCollar.visible = false
@@ -865,7 +869,8 @@ lists[0].onTap ->
 lists[1].onTap ->
 	if selections[0].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		optionAnimation3.start()
 		optionAnimation4.start()
 		Welcomes[1].visible = true
@@ -875,7 +880,7 @@ lists[1].onTap ->
 lists[1].onTap ->
 	if selections[1].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
 		scrollFabric.visible = false
 		scrollFit.visible = true
 		scrollCollar.visible = false
@@ -885,7 +890,8 @@ lists[1].onTap ->
 lists[2].onTap ->
 	if selections[1].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		optionAnimation5.start()
 		optionAnimation6.start()
 		Welcomes[2].visible = true
@@ -895,7 +901,8 @@ lists[2].onTap ->
 lists[2].onTap ->
 	if selections[2].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		scrollFabric.visible = false
 		scrollFit.visible = false
 		scrollCollar.visible = true
@@ -905,7 +912,8 @@ lists[2].onTap ->
 lists[3].onTap ->
 	if selections[2].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		optionAnimation7.start()
 		optionAnimation8.start()
 		Welcomes[3].visible = true
@@ -915,7 +923,8 @@ lists[3].onTap ->
 lists[3].onTap ->
 	if selections[3].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		scrollFabric.visible = false
 		scrollFit.visible = false
 		scrollCollar.visible = false
@@ -925,7 +934,8 @@ lists[3].onTap ->
 lists[4].onTap ->
 	if selections[3].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		optionAnimation9.start()
 		optionAnimation10.start()
 		Welcomes[4].visible = true
@@ -935,7 +945,8 @@ lists[4].onTap ->
 lists[4].onTap ->
 	if selections[4].visible == true
 		flow.showNext(screenA)
-		page.parent = PageBg
+		PageBg.parent = screenA
+		PageBg.y = 20
 		scrollFabric.visible = false
 		scrollFit.visible = false
 		scrollCollar.visible = false

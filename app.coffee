@@ -194,6 +194,7 @@ PageBg2 = new Layer
 	parent: screenA
 	width: 375
 	height: 463
+	y : -1
 	index:0
 	backgroundColor: "#fafafa"
 	
@@ -253,7 +254,7 @@ btnNext.onClick ->
 		flow.showNext(screenB)
 		sizePage.visible = false
 		PageBg.parent = stepScroll.content
-		
+		PageBg.y = 0
 
 screenA.on Events.AnimationStart, ->
 	Welcomes[0].visible=true
@@ -649,8 +650,7 @@ for i in [0...row]
 				"fontWeight": "300"
 				"fontSize": "14px"
 				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"paddingTop":"35px"
 
 		cell2 = new Layer
 			width: Screen.width/2
@@ -669,8 +669,7 @@ for i in [0...row]
 				"fontWeight": "300"
 				"fontSize": "14px"
 				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"paddingTop":"35px"
 			
 		#pushing cell in cells array 
 		cells.push(cell)
@@ -1446,11 +1445,11 @@ optionAnimation2 = new Animation Welcomes[0],
 	x: -80
 	opacity: 0
 	options:
-		delay: 2
+		delay: 3
 optionAnimation1 = new Animation scrollFabric, 
 	x: 0
 	options:
-		delay: 2
+		delay: 3
 
 optionAnimation3 = new Animation Welcomes[1], 
 	x: -80

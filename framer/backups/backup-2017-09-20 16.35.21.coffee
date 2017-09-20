@@ -62,6 +62,7 @@ btnSize = new Layer
 	backgroundColor: "rgba(255,255,255,1)"
 btnSize.onClick ->
 	sizePage.stateCycle("open")
+	sizePage.visible = true
 
 btnSizeText = new TextLayer
 	parent: btnSize
@@ -193,6 +194,7 @@ PageBg2 = new Layer
 	parent: screenA
 	width: 375
 	height: 463
+	y : -1
 	index:0
 	backgroundColor: "#fafafa"
 	
@@ -245,9 +247,14 @@ btnNext.onClick ->
 btnNext.onClick ->
 	if selections[4].visible == true
 		sizePage.stateCycle("open")
-		btnNext.backgroundColor = blue
-		btnNextText.text = "NEXT STEP"
-		btnNextText.color = white
+		sizePage.visible = true
+
+btnNext.onClick ->
+	if btnSizeText.text!= "size" && selections[4].visible == true
+		flow.showNext(screenB)
+		sizePage.visible = false
+		PageBg.parent = stepScroll.content
+		PageBg.y = 20
 
 screenA.on Events.AnimationStart, ->
 	Welcomes[0].visible=true
@@ -643,8 +650,7 @@ for i in [0...row]
 				"fontWeight": "300"
 				"fontSize": "14px"
 				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"paddingTop":"50px"
 
 		cell2 = new Layer
 			width: Screen.width/2
@@ -663,8 +669,7 @@ for i in [0...row]
 				"fontWeight": "300"
 				"fontSize": "14px"
 				"lineHeight":"30px"
-				"paddingTop":"10px"
-				"paddingBottom":"10px"
+				"paddingTop":"50px"
 			
 		#pushing cell in cells array 
 		cells.push(cell)
@@ -951,6 +956,16 @@ lists[4].onTap ->
 		Welcomes[4].text = "select monogram 5/6"
 		scrollCuff.visible = false
 		scrollMonogram.visible = true
+lists[4].onTap ->
+	if selections[4].visible == true
+		flow.showNext(screenA)
+		PageBg.parent = screenA
+		PageBg.y = 20
+		scrollFabric.visible = false
+		scrollFit.visible = false
+		scrollCollar.visible = false
+		scrollCuff.visible = false
+		scrollMonogram.visible = true
 #CREATE CARD CLASS
 class Card extends Layer
 	constructor: (options={}) ->
@@ -1170,6 +1185,7 @@ updateList = ->
 		btnStartText.x = Align.center()
 		btnNext.backgroundColor = blue
 		btnNextText.color = white
+
 #Fabric
 scrollFabric = new ScrollComponent
 	y: 0
@@ -1429,11 +1445,11 @@ optionAnimation2 = new Animation Welcomes[0],
 	x: -80
 	opacity: 0
 	options:
-		delay: 2
+		delay: 3
 optionAnimation1 = new Animation scrollFabric, 
 	x: 0
 	options:
-		delay: 2
+		delay: 3
 
 optionAnimation3 = new Animation Welcomes[1], 
 	x: -80

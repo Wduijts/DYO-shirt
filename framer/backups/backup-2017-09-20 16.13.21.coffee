@@ -248,11 +248,8 @@ btnNext.onClick ->
 		sizePage.stateCycle("open")
 		sizePage.visible = true
 
-btnNext.onClick ->
-	if btnSizeText.text!= "size" && selections[4].visible == true
-		flow.showNext(screenB)
+	else btnSizeText.text!= "size"
 		sizePage.visible = false
-		PageBg.parent = stepScroll.content
 		
 
 screenA.on Events.AnimationStart, ->

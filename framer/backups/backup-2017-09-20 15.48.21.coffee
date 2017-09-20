@@ -62,7 +62,6 @@ btnSize = new Layer
 	backgroundColor: "rgba(255,255,255,1)"
 btnSize.onClick ->
 	sizePage.stateCycle("open")
-	sizePage.visible = true
 
 btnSizeText = new TextLayer
 	parent: btnSize
@@ -244,16 +243,8 @@ btnNext.onClick ->
 		optionAnimation10.start()
 
 btnNext.onClick ->
-	if selections[4].visible == true
-		sizePage.stateCycle("open")
-		sizePage.visible = true
-
-btnNext.onClick ->
-	if btnSizeText.text!= "size" && selections[4].visible == true
-		flow.showNext(screenB)
-		sizePage.visible = false
-		PageBg.parent = stepScroll.content
-		
+# 	if selections[4].visible
+# 		sizePage.stateCycle("open")
 
 screenA.on Events.AnimationStart, ->
 	Welcomes[0].visible=true

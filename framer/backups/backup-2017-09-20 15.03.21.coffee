@@ -62,7 +62,6 @@ btnSize = new Layer
 	backgroundColor: "rgba(255,255,255,1)"
 btnSize.onClick ->
 	sizePage.stateCycle("open")
-	sizePage.visible = true
 
 btnSizeText = new TextLayer
 	parent: btnSize
@@ -246,14 +245,9 @@ btnNext.onClick ->
 btnNext.onClick ->
 	if selections[4].visible == true
 		sizePage.stateCycle("open")
-		sizePage.visible = true
-
-btnNext.onClick ->
-	if btnSizeText.text!= "size" && selections[4].visible == true
-		flow.showNext(screenB)
-		sizePage.visible = false
-		PageBg.parent = stepScroll.content
-		
+		btnNext.backgroundColor = blue
+		btnNextText.text = "NEXT STEP"
+		btnNextText.color = white
 
 screenA.on Events.AnimationStart, ->
 	Welcomes[0].visible=true
@@ -886,6 +880,8 @@ lists[1].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		optionAnimation3.start()
 		optionAnimation4.start()
 		Welcomes[1].visible = true
@@ -896,6 +892,8 @@ lists[1].onTap ->
 	if selections[1].visible == true
 		flow.showNext(screenA)
 		PageBg.parent = screenA
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		scrollFabric.visible = false
 		scrollFit.visible = true
 		scrollCollar.visible = false
@@ -907,6 +905,8 @@ lists[2].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		optionAnimation5.start()
 		optionAnimation6.start()
 		Welcomes[2].visible = true
@@ -918,6 +918,8 @@ lists[2].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		scrollFabric.visible = false
 		scrollFit.visible = false
 		scrollCollar.visible = true
@@ -929,6 +931,8 @@ lists[3].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		optionAnimation7.start()
 		optionAnimation8.start()
 		Welcomes[3].visible = true
@@ -940,6 +944,8 @@ lists[3].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		scrollFabric.visible = false
 		scrollFit.visible = false
 		scrollCollar.visible = false
@@ -951,20 +957,12 @@ lists[4].onTap ->
 		flow.showNext(screenA)
 		PageBg.parent = screenA
 		PageBg.y = 20
+		btnNext.backgroundColor = grey3
+		btnNextText.color = "#999999"
 		optionAnimation9.start()
 		optionAnimation10.start()
 		Welcomes[4].visible = true
 		Welcomes[4].text = "select monogram 5/6"
-		scrollCuff.visible = false
-		scrollMonogram.visible = true
-lists[4].onTap ->
-	if selections[4].visible == true
-		flow.showNext(screenA)
-		PageBg.parent = screenA
-		PageBg.y = 20
-		scrollFabric.visible = false
-		scrollFit.visible = false
-		scrollCollar.visible = false
 		scrollCuff.visible = false
 		scrollMonogram.visible = true
 #CREATE CARD CLASS
@@ -1184,9 +1182,7 @@ updateList = ->
 		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
 		btnStartText.text = "Add to bag"
 		btnStartText.x = Align.center()
-		btnNext.backgroundColor = blue
-		btnNextText.color = white
-
+		
 #Fabric
 scrollFabric = new ScrollComponent
 	y: 0

@@ -1003,7 +1003,6 @@ class Card extends Layer
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
-
 		price = new Layer
 			parent: @
 			x: @.height + 20
@@ -1024,10 +1023,11 @@ class Card extends Layer
 			image: "images/icon_i.svg"
 			visible: true
 #Overlay
+		
 		infoIcon.on Events.Click, (ignoreParent) ->
 			overlayBG = new Layer
-				x: background.x
-				y: 431
+				x: 0 
+				y: 0
 				width: Screen.width
 				height: Screen.height
 				backgroundColor: "white"
@@ -1035,8 +1035,6 @@ class Card extends Layer
 				parent: overlayBG
 				size: Screen.size
 				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer
@@ -1098,6 +1096,8 @@ class Card extends Layer
 			currentImage = photo.copy()
 			currentImage.parent = overlayScroll.content
 			currentImage.frame = photo.screenFrame
+			photo.visible = false
+			background.visible = false
 			currentImage.animate
 				properties:
 					width:375
@@ -1140,7 +1140,9 @@ class Card extends Layer
 						options:
 							time:0.3
 				this.on Events.AnimationEnd, ->
+					photo.visible = true
 					currentImage.destroy()
+					background.visible = true
 					overlayBG.destroy()
 
 class CardMonogram extends Layer
@@ -1151,21 +1153,16 @@ class CardMonogram extends Layer
 		options.shadowBlur = 2
 		options.width = 265
 		options.height = 120
-		options.clip = true
 		super options
 		background = new Layer
 			parent: @
 			size: @.size
-			backgroundColor: "#ffffff"
+			backgroundColor: ""
 			borderWidth = 0
 		photo = new Layer
 			parent: @
 			size: @.height
-			x: options.photox
-			y: options.photoy
 			image: options.photo
-			height: options.photoheight
-			width: options.photowidth
 		titled = new Layer
 			parent: @
 			x: @.height + 20
@@ -1177,20 +1174,29 @@ class CardMonogram extends Layer
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
+
 #Overlay
+		
 		background.on Events.Click, (ignoreParent) ->
 			overlayBG = new Layer
-				x: background.x
-				y: 431
+				x: 0 
+				y: 0
 				width: Screen.width
 				height: Screen.height
 				backgroundColor: "white"
+				opacity: 0
+			overlayBG.states.add
+				active: 
+					opacity: 1
 			overlayScroll = new ScrollComponent
 				parent: overlayBG
-				size: Screen.size
+				width: Screen.width
+				height: Screen.height
+				opacity: 0
 				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
+			overlayScroll.states.add
+				active:
+					opacity: 1
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer
@@ -1208,13 +1214,19 @@ class CardMonogram extends Layer
 			TitleOverlay.states.add
 				active:
 					opacity:1
-					y: 390
+					y: 390				
+			currentImage = photo.copy()
+			currentImage.index = 4
+			currentImage.frame = photo.screenFrame
+			currentImage.parent = overlayScroll.content
+			
+			
+			
 			text = new TextLayer
-# 				parent: overlayScroll.content
-				parent: overlayBG
+				parent: overlayScroll.content
 				text: ""
-				x: Align.center(-40)
-				y: Align.center(-40)
+				x: 64
+				y: 223
 				textTransform: "uppercase"
 				style:
 					"font-family": "Roboto Condensed"
@@ -1229,11 +1241,11 @@ class CardMonogram extends Layer
 				width:  overlayBG.width - 40
 				height: 50
 				x: 20
-				y: 440 + 10
+				y: 440
 				borderWidth: 1
 				borderColor: "rgba(153,153,153,1)"
 				fontFamily: "Roboto Condensed"
-				fontWeight: 300
+				fontWeight: 500
 				fontSize: 28
 				indent: 20
 				placeHolder: "Type Your Initials (Max 4)"
@@ -1245,27 +1257,20 @@ class CardMonogram extends Layer
 				maxLength: 4
 				pattern: "^#?([A-Z]{4})$"
 				value: ""
-			Input.states.add
-				active:
-					opacity:1
-					y: 440
+						
 			Input.on Events.Focus, (value, layer) ->
+# 				print "cow"
 				@.placeHolder = 20
 			Input.on Events.Input, (value, layer) ->
 				text.text = value
 				text.color = blue
-				lists[4].text = value + ", Blue, " + titles[4]
+				lists[4].text = value + ", Blue, " #+ monogramTitle[i]
 			blueBox = new Layer
 				parent: overlayScroll.content
 				width: overlayBG.width
-				y: 511 + 10
-				opacity:0
+				y: 511
 				height: 70
 				backgroundColor: "#F2F2F2"
-			blueBox.states.add
-				active:
-					opacity:1
-					y: 511
 			blueText = new TextLayer
 				parent: blueBox
 				x: 20
@@ -1294,21 +1299,11 @@ class CardMonogram extends Layer
 			whiteBox = new Layer
 				parent: overlayScroll.content
 				width: overlayBG.width
-				y: 511 + blueBox.height + 10
-				opacity : 0
+				y: 511 + blueBox.height
 				height: 70
 				backgroundColor: ""
 				borderColor: "#f2f2f2"
 				borderWidth: 1
-			whiteBox.states.add
-				active:
-					opacity:1
-					y: 511 + blueBox.height
-			emptyBox = new Layer
-				parent: overlayScroll.content
-				y: 370 + blueBox.height + whiteBox.height
-				width:1
-				backgroundColor:null
 			whiteText = new TextLayer
 				parent: whiteBox
 				x: 20
@@ -1334,7 +1329,54 @@ class CardMonogram extends Layer
 				size: 20
 				borderRadius: 10
 				backgroundColor: ""
-
+			overlayClose = new Layer
+				x: 0
+				y: Screen.height-60
+				width: Screen.width/2
+				height: 60
+				parent: overlayBG
+				backgroundColor: "rgba(255,255,255,1)"
+				shadowSpread: 1
+				shadowColor: "rgba(123,123,123,0.3)"
+				shadowX: -2
+				shadowBlur: 4
+				index: 10
+				html: "back"
+				style:
+					"lineHeight" : "20px"
+					"textAlign":"center"
+					"font-family": "Roboto Condensed"
+					"font-weight":"500"
+					"color": "#183051"
+					"font-size": "14px"
+					"textTransform":"uppercase"
+					"paddingTop":"50px"
+			
+			overlaySelect = new Layer
+				x: Screen.width/2
+				y: Screen.height-60
+				width: Screen.width/2
+				height: 60
+				parent: overlayBG
+				index: 2
+				backgroundColor: "#183051"
+				shadowSpread: 1
+				shadowColor: "rgba(123,123,123,0.3)"
+				shadowX: -2
+				shadowBlur: 4
+				index: 9
+				html: "select		"
+				style:
+					"lineHeight" : "20px"
+					"textAlign":"centerY"
+					"textAlign":"center"
+					"font-family": "Roboto Condensed"
+					"font-weight":"500"
+					"color": "white"
+					"font-size": "14px"
+					"textTransform":"uppercase"
+					"paddingTop":"50px"
+			
 			whiteBox.onClick (value, layer) ->
 				blueBox.backgroundColor = ""
 				blueCircle.backgroundColor = "#183051"
@@ -1342,7 +1384,7 @@ class CardMonogram extends Layer
 				whiteCircle.borderColor = "#ffffff"
 				whiteDot.backgroundColor = "#ffffff"
 				text.color = white
-				selections[4].text = Input.value + ", White, " + titles[4]
+# 				monogramSelection.text = Input.value + ", White, " + monogramTitle[i]
 			blueBox.onClick (value, layer) ->
 				blueBox.backgroundColor = "#f2f2f2"
 				blueCircle.backgroundColor = ""
@@ -1350,23 +1392,35 @@ class CardMonogram extends Layer
 				whiteCircle.borderColor = "#f2f2f2"
 				whiteDot.backgroundColor = ""
 				text.color = blue
-				selections[4].text = Input.value + ", Blue, " + titles[4]
+# 				monogramSelection.text = Input.value + ", Blue, " + monogramTitle[i]
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+					
 			ignoreParent.stopPropagation()
 			TitleOverlay.visible = true
+			overlayBG.states.next("active")
+			overlayScroll.states.next("active")
 			TitleOverlay.states.next("active")
-			Input.states.next("active")
-			blueBox.states.next("active")
-			whiteBox.states.next("active")
-			currentImage = photo.copy()
-			currentImage.parent = overlayScroll.content
-			currentImage.frame = photo.screenFrame
+# 			currentBg = background.copy()
+# 			currentBg.parent = overlayBG
+			
+			overlayBG.frame = background.screenFrame
+			photo.visible = false
+			background.visible = false
 			currentImage.animate
 				properties:
 					width:375
 					height:375
-					x: 0
-					y: 0
+					x:0
+					y:0
 					options:
 						time: 0.3
 			overlayBG.animate
@@ -1376,7 +1430,7 @@ class CardMonogram extends Layer
 					x:0
 					y:0
 					options:
-						time:0.3
+						time: 0.3
 			#Return
 			currentImage.on Events.Click, (ignoreParent) ->
 				ignoreParent.stopPropagation()
@@ -1386,8 +1440,8 @@ class CardMonogram extends Layer
 					properties:
 						width:120
 						height:120
-						photox: photo.screenFrame.x
-						photoy: photo.screenFrame.y
+						x:photo.screenFrame.x
+						y:photo.screenFrame.y
 						options:
 							time: 0.3
 				overlayBG.animate
@@ -1399,8 +1453,11 @@ class CardMonogram extends Layer
 						options:
 							time:0.3
 				this.on Events.AnimationEnd, ->
+					photo.visible = true
 					currentImage.destroy()
+					background.visible = true
 					overlayBG.destroy()
+
 
 class Card2 extends Layer
 	constructor: (options={}) ->
@@ -1414,15 +1471,14 @@ class Card2 extends Layer
 		
 		titled = new Layer
 			parent: @
-			x: Align.center()
-			y: Align.center()
+			x: 10
+			y: 10
 			backgroundColor: ""
 			html: options.title
 			color: "#183051" 
 			style: 
-				"font-size":"16px"
+				"font-size":"14px"
 				"lineHeight":"1.7"
-				
 
 gutter = 10
 width = 265
@@ -1694,7 +1750,7 @@ monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescrip
 
 	for i in [0...2]
 		do(i) ->
-			cardA = new CardMonogram
+			cardA = new Card
 				parent: scrollMonogram.content
 				x: width + (i * (width + gutter)) + 20
 				title: monogramTitle[i]

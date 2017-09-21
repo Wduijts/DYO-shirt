@@ -982,7 +982,7 @@ class Card extends Layer
 			size: @.size
 			backgroundColor: "#ffffff"
 			borderWidth = 0
-
+			
 		photo = new Layer
 			parent: @
 			size: @.height
@@ -990,7 +990,6 @@ class Card extends Layer
 			y: options.photoy
 			image: options.photo
 			height: options.photoheight
-			width: options.photowidth
 
 		titled = new Layer
 			parent: @
@@ -1003,7 +1002,6 @@ class Card extends Layer
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
-
 		price = new Layer
 			parent: @
 			x: @.height + 20
@@ -1024,70 +1022,52 @@ class Card extends Layer
 			image: "images/icon_i.svg"
 			visible: true
 #Overlay
+		TitleOverlay = new Layer
+			x: 20
+			y: 390 + 10
+			width: 375
+			opacity:0
+			backgroundColor:null
+			html: options.title
+			color: "#183051" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		TitleOverlay.states.add
+			active:
+				opacity:1
+				y: 390
+		PriceOverlay = new Layer
+			x: 20
+			y: 420 + 10
+			width: 375
+			opacity : 0
+			backgroundColor:null
+			html: options.price
+			color: "#3376c9" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		PriceOverlay.states.add
+			active:
+				opacity:1
+				y:420
+		DescriptionOverlay = new Layer
+			x: 20
+			y: 450 + 10
+			opacity : 0
+			width: 335
+			backgroundColor:null
+			html: options.description
+			color: "#999999" 
+			style: 
+				"font-size":"16px"
+				"lineHeight":"1.7"
+		DescriptionOverlay.states.add
+			active:
+				opacity:1
+				y:450
 		infoIcon.on Events.Click, (ignoreParent) ->
-			overlayBG = new Layer
-				x: background.x
-				y: 431
-				width: Screen.width
-				height: Screen.height
-				backgroundColor: "white"
-			overlayScroll = new ScrollComponent
-				parent: overlayBG
-				size: Screen.size
-				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
-			overlayScroll.scrollHorizontal = false
-			overlayScroll.mouseWheelEnabled = true
-			TitleOverlay = new Layer
-				parent: overlayScroll.content
-				x: 20
-				y: 390 + 10
-				width: 375
-				opacity:0
-				backgroundColor:null
-				html: options.title
-				color: "#183051" 
-				style: 
-					"font-size":"16px"
-					"lineHeight":"1.7"
-			TitleOverlay.states.add
-				active:
-					opacity:1
-					y: 390
-			PriceOverlay = new Layer
-				parent: overlayScroll.content
-				x: 20
-				y: 420 + 10
-				width: 375
-				opacity : 0
-				backgroundColor:null
-				html: options.price
-				color: "#3376c9" 
-				style: 
-					"font-size":"16px"
-					"lineHeight":"1.7"
-			PriceOverlay.states.add
-				active:
-					opacity:1
-					y:420
-			DescriptionOverlay = new Layer
-				parent: overlayScroll.content
-				x: 20
-				y: 450 + 10
-				opacity : 0
-				width: 335
-				height: 250
-				backgroundColor:null
-				html: options.description
-				color: "#999999" 
-				style: 
-					"font-size":"16px"
-					"lineHeight":"1.7"
-			DescriptionOverlay.states.add
-				active:
-					opacity:1
-					y:450
 			ignoreParent.stopPropagation()
 			TitleOverlay.visible = true
 			PriceOverlay.visible = true
@@ -1096,8 +1076,11 @@ class Card extends Layer
 			PriceOverlay.states.next("active")
 			DescriptionOverlay.states.next("active")
 			currentImage = photo.copy()
-			currentImage.parent = overlayScroll.content
+			currentBg = background.copy()
 			currentImage.frame = photo.screenFrame
+			currentBg.frame = background.screenFrame
+			photo.visible = false
+			background.visible = false
 			currentImage.animate
 				properties:
 					width:375
@@ -1106,7 +1089,7 @@ class Card extends Layer
 					y:0
 					options:
 						time: 0.3
-			overlayBG.animate
+			currentBg.animate
 				properties:
 					width:375
 					height:667
@@ -1127,11 +1110,11 @@ class Card extends Layer
 					properties:
 						width:120
 						height:120
-						photox: photo.screenFrame.x
-						photoy: photo.screenFrame.y
+						x:photo.screenFrame.x
+						y:photo.screenFrame.y
 						options:
 							time: 0.3
-				overlayBG.animate
+				currentBg.animate
 					properties:
 						width:265
 						height:120
@@ -1140,267 +1123,10 @@ class Card extends Layer
 						options:
 							time:0.3
 				this.on Events.AnimationEnd, ->
+					photo.visible = true
 					currentImage.destroy()
-					overlayBG.destroy()
-
-class CardMonogram extends Layer
-	constructor: (options={}) ->
-		options.backgroundColor = "#ffffff"
-		options.borderWidth = 0
-		options.shadowY = 1
-		options.shadowBlur = 2
-		options.width = 265
-		options.height = 120
-		options.clip = true
-		super options
-		background = new Layer
-			parent: @
-			size: @.size
-			backgroundColor: "#ffffff"
-			borderWidth = 0
-		photo = new Layer
-			parent: @
-			size: @.height
-			x: options.photox
-			y: options.photoy
-			image: options.photo
-			height: options.photoheight
-			width: options.photowidth
-		titled = new Layer
-			parent: @
-			x: @.height + 20
-			y: 10
-			width: 105
-			backgroundColor: null
-			html: options.title
-			color: "#183051" 
-			style: 
-				"font-size":"14px"
-				"lineHeight":"1.7"
-#Overlay
-		background.on Events.Click, (ignoreParent) ->
-			overlayBG = new Layer
-				x: background.x
-				y: 431
-				width: Screen.width
-				height: Screen.height
-				backgroundColor: "white"
-			overlayScroll = new ScrollComponent
-				parent: overlayBG
-				size: Screen.size
-				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
-			overlayScroll.scrollHorizontal = false
-			overlayScroll.mouseWheelEnabled = true
-			TitleOverlay = new Layer
-				parent: overlayScroll.content
-				x: 20
-				y: 390 + 10
-				width: 375
-				opacity:0
-				backgroundColor:null
-				html: options.title
-				color: "#183051" 
-				style: 
-					"font-size":"16px"
-					"lineHeight":"1.7"
-			TitleOverlay.states.add
-				active:
-					opacity:1
-					y: 390
-			text = new TextLayer
-# 				parent: overlayScroll.content
-				parent: overlayBG
-				text: ""
-				x: Align.center(-40)
-				y: Align.center(-40)
-				textTransform: "uppercase"
-				style:
-					"font-family": "Roboto Condensed"
-					"font-weight":"300"
-					"color": "#183051"
-					"text-align": "left"
-					"font-size": "26x"
-					"textTransform":"uppercase"
-			Input = new InputField
-				parent: overlayScroll.content
-				type: "text"
-				width:  overlayBG.width - 40
-				height: 50
-				x: 20
-				y: 440 + 10
-				borderWidth: 1
-				borderColor: "rgba(153,153,153,1)"
-				fontFamily: "Roboto Condensed"
-				fontWeight: 300
-				fontSize: 28
-				indent: 20
-				placeHolder: "Type Your Initials (Max 4)"
-				placeHolderColor: "#999999"
-				textTransform: "uppercase"
-				autoCapitalize: true	
-				autoComplete: false
-				autoCorrect: false
-				maxLength: 4
-				pattern: "^#?([A-Z]{4})$"
-				value: ""
-			Input.states.add
-				active:
-					opacity:1
-					y: 440
-			Input.on Events.Focus, (value, layer) ->
-				@.placeHolder = 20
-			Input.on Events.Input, (value, layer) ->
-				text.text = value
-				text.color = blue
-				lists[4].text = value + ", Blue, " + titles[4]
-			blueBox = new Layer
-				parent: overlayScroll.content
-				width: overlayBG.width
-				y: 511 + 10
-				opacity:0
-				height: 70
-				backgroundColor: "#F2F2F2"
-			blueBox.states.add
-				active:
-					opacity:1
-					y: 511
-			blueText = new TextLayer
-				parent: blueBox
-				x: 20
-				y: Align.center()
-				text: "Blue"
-				fontSize: 14
-				color: blue
-				fontFamily: "Roboto Condensed"
-				fontWeight: 400
-			blueCircle = new Layer
-				parent: blueBox
-				x: Screen.width-50
-				y: Align.center()
-				size: 30
-				borderRadius: 15
-				borderColor: "#183051"
-				borderWidth: 1
-				backgroundColor: ""
-			blueDot = new Layer
-				parent: blueBox
-				x: Screen.width-45
-				y: Align.center() 
-				size: 20
-				borderRadius: 10
-				backgroundColor: "#183051"
-			whiteBox = new Layer
-				parent: overlayScroll.content
-				width: overlayBG.width
-				y: 511 + blueBox.height + 10
-				opacity : 0
-				height: 70
-				backgroundColor: ""
-				borderColor: "#f2f2f2"
-				borderWidth: 1
-			whiteBox.states.add
-				active:
-					opacity:1
-					y: 511 + blueBox.height
-			emptyBox = new Layer
-				parent: overlayScroll.content
-				y: 370 + blueBox.height + whiteBox.height
-				width:1
-				backgroundColor:null
-			whiteText = new TextLayer
-				parent: whiteBox
-				x: 20
-				y: Align.center()
-				text: "White"
-				fontSize: 14
-				color: "#999999"
-				fontFamily: "Roboto Condensed"
-				fontWeight: 400
-			whiteCircle = new Layer
-				parent: whiteBox
-				x: Screen.width-50
-				y: Align.center()
-				size: 30
-				borderRadius: 15
-				borderColor: ""
-				borderWidth: 1
-				backgroundColor: "#f2f2f2"
-			whiteDot = new Layer
-				parent: whiteBox
-				x: Screen.width-45
-				y: Align.center() 
-				size: 20
-				borderRadius: 10
-				backgroundColor: ""
-
-			whiteBox.onClick (value, layer) ->
-				blueBox.backgroundColor = ""
-				blueCircle.backgroundColor = "#183051"
-				whiteBox.backgroundColor = "#f2f2f2"
-				whiteCircle.borderColor = "#ffffff"
-				whiteDot.backgroundColor = "#ffffff"
-				text.color = white
-				selections[4].text = Input.value + ", White, " + titles[4]
-			blueBox.onClick (value, layer) ->
-				blueBox.backgroundColor = "#f2f2f2"
-				blueCircle.backgroundColor = ""
-				whiteBox.backgroundColor = ""
-				whiteCircle.borderColor = "#f2f2f2"
-				whiteDot.backgroundColor = ""
-				text.color = blue
-				selections[4].text = Input.value + ", Blue, " + titles[4]
-
-			ignoreParent.stopPropagation()
-			TitleOverlay.visible = true
-			TitleOverlay.states.next("active")
-			Input.states.next("active")
-			blueBox.states.next("active")
-			whiteBox.states.next("active")
-			currentImage = photo.copy()
-			currentImage.parent = overlayScroll.content
-			currentImage.frame = photo.screenFrame
-			currentImage.animate
-				properties:
-					width:375
-					height:375
-					x: 0
-					y: 0
-					options:
-						time: 0.3
-			overlayBG.animate
-				properties:
-					width:375
-					height:667
-					x:0
-					y:0
-					options:
-						time:0.3
-			#Return
-			currentImage.on Events.Click, (ignoreParent) ->
-				ignoreParent.stopPropagation()
-				TitleOverlay.visible = false
-				TitleOverlay.states.next("default")
-				currentImage.animate
-					properties:
-						width:120
-						height:120
-						photox: photo.screenFrame.x
-						photoy: photo.screenFrame.y
-						options:
-							time: 0.3
-				overlayBG.animate
-					properties:
-						width:265
-						height:120
-						x:background.screenFrame.x
-						y:background.screenFrame.y
-						options:
-							time:0.3
-				this.on Events.AnimationEnd, ->
-					currentImage.destroy()
-					overlayBG.destroy()
+					background.visible = true
+					currentBg.destroy()
 
 class Card2 extends Layer
 	constructor: (options={}) ->
@@ -1414,15 +1140,14 @@ class Card2 extends Layer
 		
 		titled = new Layer
 			parent: @
-			x: Align.center()
-			y: Align.center()
+			x: 10
+			y: 10
 			backgroundColor: ""
 			html: options.title
 			color: "#183051" 
 			style: 
-				"font-size":"16px"
+				"font-size":"14px"
 				"lineHeight":"1.7"
-				
 
 gutter = 10
 width = 265
@@ -1489,10 +1214,7 @@ fabricContent =  (fabricParent, fabricType, fabricTitle, fabricPrice, fabricDesc
 				price: fabricPrice[i]
 				description: fabricsDescription[i]
 				photo: "images/#{fabricType}/#{i+1}.jpg"
-				photox: 0
-				photoy: 0
-				photoheight: 120
-				photowidth: 120
+				
 			cards.push(cardA)
 			cardA.onClick ->
 					for cardA in cards
@@ -1545,7 +1267,7 @@ fitContent =  (fitParent, fitType, fitTitle, fitDescription) ->
 				photox: - 89
 				photoy: - 92
 				photoheight: 250
-				photowidth: 250
+				
 			cards.push(cardA)
 			cardA.onTap ->
 					for cardA in cards
@@ -1592,10 +1314,6 @@ collarContent =  (collarParent, collarType, collarTitle, collarDescription) ->
 				title: collarTitle[i]
 				description: collarsDescription[i]
 				photo: "images/#{collarType}/#{i+1}.jpg"
-				photox: 0
-				photoy: 0
-				photoheight: 120
-				photowidth: 120
 			cards.push(cardA)
 			
 			cardA.onClick ->
@@ -1643,10 +1361,6 @@ cuffContent =  (cuffParent, cuffType, cuffTitle, cuffDescription) ->
 				title: cuffTitle[i]
 				description: cuffsDescription[i]
 				photo: "images/#{cuffType}/#{i+1}.jpg"
-				photox: 0
-				photoy: 0
-				photoheight: 120
-				photowidth: 120
 			cards.push(cardA)
 			cardA.onClick ->
 					for cardA in cards
@@ -1694,15 +1408,11 @@ monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescrip
 
 	for i in [0...2]
 		do(i) ->
-			cardA = new CardMonogram
+			cardA = new Card
 				parent: scrollMonogram.content
 				x: width + (i * (width + gutter)) + 20
 				title: monogramTitle[i]
 				photo: "images/#{monogramType}/#{i+1}.jpg"
-				photox: 0
-				photoy: 0
-				photoheight: 120
-				photowidth: 120
 			cards.push(cardA)
 			cardA.onClick ->
 					for cardA in cards

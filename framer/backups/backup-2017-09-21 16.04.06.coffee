@@ -1035,8 +1035,6 @@ class Card extends Layer
 				parent: overlayBG
 				size: Screen.size
 				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer
@@ -1189,8 +1187,6 @@ class CardMonogram extends Layer
 				parent: overlayBG
 				size: Screen.size
 				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer
@@ -1361,6 +1357,8 @@ class CardMonogram extends Layer
 			currentImage = photo.copy()
 			currentImage.parent = overlayScroll.content
 			currentImage.frame = photo.screenFrame
+# 			photo.visible = false
+# 			background.visible = false
 			currentImage.animate
 				properties:
 					width:375
@@ -1377,6 +1375,7 @@ class CardMonogram extends Layer
 					y:0
 					options:
 						time:0.3
+
 			#Return
 			currentImage.on Events.Click, (ignoreParent) ->
 				ignoreParent.stopPropagation()
@@ -1399,7 +1398,9 @@ class CardMonogram extends Layer
 						options:
 							time:0.3
 				this.on Events.AnimationEnd, ->
+# 					photo.visible = true
 					currentImage.destroy()
+# 					background.visible = true
 					overlayBG.destroy()
 
 class Card2 extends Layer
@@ -1414,13 +1415,13 @@ class Card2 extends Layer
 		
 		titled = new Layer
 			parent: @
-			x: Align.center()
-			y: Align.center()
+			x: 10
+			y: 10
 			backgroundColor: ""
 			html: options.title
 			color: "#183051" 
 			style: 
-				"font-size":"16px"
+				"font-size":"14px"
 				"lineHeight":"1.7"
 				
 

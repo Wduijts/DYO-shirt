@@ -1036,7 +1036,7 @@ class Card extends Layer
 				size: Screen.size
 				backgroundColor: ""
 			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
+				if overlayScroll.scrollY <= 0 then ove.scrollY = 0
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer
@@ -1189,8 +1189,6 @@ class CardMonogram extends Layer
 				parent: overlayBG
 				size: Screen.size
 				backgroundColor: ""
-			overlayScroll.on Events.Scroll, ->
-				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
 			overlayScroll.scrollHorizontal = false
 			overlayScroll.mouseWheelEnabled = true
 			TitleOverlay = new Layer

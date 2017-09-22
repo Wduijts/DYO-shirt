@@ -1178,286 +1178,268 @@ class CardMonogram extends Layer
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
-		monogramTitle2 = new Layer
-			visible: false
-			html: options.TitleofMonogram
 #Overlay
-		monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescription) ->
-			background.on Events.Click, (ignoreParent) ->
-				overlayBG = new Layer
-					x: background.x
-					y: 431
-					width: Screen.width
-					height: Screen.height
-					backgroundColor: "white"
-				overlayScroll = new ScrollComponent
-					parent: overlayBG
-					size: Screen.size
-					backgroundColor: ""
-				overlayScroll.on Events.Scroll, ->
-					if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
-				overlayScroll.scrollHorizontal = false
-				overlayScroll.mouseWheelEnabled = true
-				TitleOverlay = new Layer
-					parent: overlayScroll.content
-					x: 20
-					y: 390 + 10
-					width: 375
-					opacity:0
-					backgroundColor:null
-					html: options.title
-					color: "#183051" 
-					style: 
-						"font-size":"16px"
-						"lineHeight":"1.7"
-				TitleOverlay.states.add
-					active:
-						opacity:1
-						y: 390
-				text = new TextLayer
-					parent: overlayScroll.content
-					text: ""
-					x: Align.center(-50)
-					y: Align.center(-80)
-					index: 4
-					textTransform: "uppercase"
-					fontSize: 26
-					style:
-						"font-family": "Roboto Condensed"
-						"font-weight":"300"
-						"color": "#183051"
-						"text-align": "left"
-						"textTransform":"uppercase"
-				Input = new InputField
-					parent: overlayScroll.content
-					type: "text"
-					width:  (Screen.width/2)-30
-					height: 50
-					x: 20
-					y: 440 + 10
-					borderWidth: 1
-					borderColor: "rgba(153,153,153,1)"
-					fontFamily: "Roboto Condensed"
-					fontWeight: 300
-					fontSize: 28
-					indent: 20
-					placeHolder: "Initials (Max 4)"
-					placeHolderColor: "#999999"
-					textTransform: "uppercase"
-					autoCapitalize: true	
-					autoComplete: false
-					autoCorrect: false
-					maxLength: 4
-					pattern: "^#?([A-Z]{4})$"
-					value: ""
-				Input.states.add
-					active:
-						opacity:1
-						y: 440
-				Input.on Events.Focus, (value, layer) ->
-					@.placeHolder = 20
-				Input.on Events.Input, (value, layer) ->
-					text.text = value
-					text.color = blue
-					selections[4].html = value + ", Blue, " + options.title
-				inputBtn = new Layer
-					parent: overlayScroll.content
-					x: (Screen.width/2)+10
-					y: Input.y - 10
-					width: (Screen.width/2)-30
-					height: Input.height
-					backgroundColor: blue
-					html: "Apply"
-					style:
-						"font-family": "Roboto Condensed"
-						"fontWeight":"300"
-						"color": "#ffffff"
-						"text-align": "center"
-						"font-size": "14px"
-						"textTransform":"uppercase"
-						"lineHeight":"100px"
-				blueBox = new Layer
-					parent: overlayScroll.content
-					width: overlayBG.width
-					y: 511 + 10
-					opacity:0
-					height: 70
-					backgroundColor: "#F2F2F2"
-					borderColor: "#f2f2f2"
-					borderWidth: 1
-				blueBox.states.add
-					active:
-						opacity:1
-						y: 511
-				blueText = new TextLayer
-					parent: blueBox
-					x: 20
-					y: Align.center()
-					text: "Blue"
-					fontSize: 14
-					color: blue
-					fontFamily: "Roboto Condensed"
-					fontWeight: 400
-				blueCircle = new Layer
-					parent: blueBox
-					x: Screen.width-50
-					y: Align.center()
-					size: 30
-					borderRadius: 15
-					borderColor: "#183051"
-					borderWidth: 1
-					backgroundColor: ""
-				blueDot = new Layer
-					parent: blueBox
-					x: Screen.width-45
-					y: Align.center() 
-					size: 20
-					borderRadius: 10
-					backgroundColor: "#183051"
-				whiteBox = new Layer
-					parent: overlayScroll.content
-					width: overlayBG.width
-					y: 511 + blueBox.height + 10
-					opacity : 0
-					height: 70
-					backgroundColor: ""
-					borderColor: "#f2f2f2"
-					borderWidth: 1
-				whiteBox.states.add
-					active:
-						opacity:1
-						y: 511 + blueBox.height
-				whiteText = new TextLayer
-					parent: whiteBox
-					x: 20
-					y: Align.center()
-					text: "White"
-					fontSize: 14
-					color: "#999999"
-					fontFamily: "Roboto Condensed"
-					fontWeight: 400
-				whiteCircle = new Layer
-					parent: whiteBox
-					x: Screen.width-50
-					y: Align.center()
-					size: 30
-					borderRadius: 15
-					borderColor: ""
-					borderWidth: 1
-					backgroundColor: "#f2f2f2"
-				whiteDot = new Layer
-					parent: whiteBox
-					x: Screen.width-45
-					y: Align.center() 
-					size: 20
-					borderRadius: 10
-					backgroundColor: ""
-	
-				whiteBox.onClick (value, layer) ->
-					blueBox.backgroundColor = ""
-					blueCircle.backgroundColor = "#183051"
-					whiteBox.backgroundColor = "#f2f2f2"
-					whiteCircle.borderColor = "#ffffff"
-					whiteDot.backgroundColor = "#ffffff"
-					text.color = white
-					selections[4].html = Input.value + ", White, " + options.title
-				blueBox.onClick (value, layer) ->
-					blueBox.backgroundColor = "#f2f2f2"
-					blueCircle.backgroundColor = ""
-					whiteBox.backgroundColor = ""
-					whiteCircle.borderColor = "#f2f2f2"
-					whiteDot.backgroundColor = ""
-					text.color = blue
-					selections[4].html = Input.value + ", Blue, " + options.title
-	
+		background.on Events.Click, (ignoreParent) ->
+			overlayBG = new Layer
+				x: background.x
+				y: 431
+				width: Screen.width
+				height: Screen.height
+				backgroundColor: "white"
+			overlayScroll = new ScrollComponent
+				parent: overlayBG
+				size: Screen.size
+				backgroundColor: ""
+			overlayScroll.on Events.Scroll, ->
+				if overlayScroll.scrollY <= 0 then overlayScroll.scrollY = 0
+			overlayScroll.scrollHorizontal = false
+			overlayScroll.mouseWheelEnabled = true
+			TitleOverlay = new Layer
+				parent: overlayScroll.content
+				x: 20
+				y: 390 + 10
+				width: 375
+				opacity:0
+				backgroundColor:null
+				html: options.title
+				color: "#183051" 
+				style: 
+					"font-size":"16px"
+					"lineHeight":"1.7"
+			TitleOverlay.states.add
+				active:
+					opacity:1
+					y: 390
+			text = new TextLayer
+				parent: overlayScroll.content
+				text: ""
+				x: Align.center(-50)
+				y: Align.center(-80)
+				index: 4
+				textTransform: "uppercase"
+				fontSize: 26
+				style:
+					"font-family": "Roboto Condensed"
+					"font-weight":"300"
+					"color": "#183051"
+					"text-align": "left"
+					"textTransform":"uppercase"
+			Input = new InputField
+				parent: overlayScroll.content
+				type: "text"
+				width:  (Screen.width/2)-30
+				height: 50
+				x: 20
+				y: 440 + 10
+				borderWidth: 1
+				borderColor: "rgba(153,153,153,1)"
+				fontFamily: "Roboto Condensed"
+				fontWeight: 300
+				fontSize: 28
+				indent: 20
+				placeHolder: "Initials (Max 4)"
+				placeHolderColor: "#999999"
+				textTransform: "uppercase"
+				autoCapitalize: true	
+				autoComplete: false
+				autoCorrect: false
+				maxLength: 4
+				pattern: "^#?([A-Z]{4})$"
+				value: ""
+			Input.states.add
+				active:
+					opacity:1
+					y: 440
+			Input.on Events.Focus, (value, layer) ->
+				@.placeHolder = 20
+			Input.on Events.Input, (value, layer) ->
+				text.text = value
+				text.color = blue
+				selections[4].html = value + ", Blue, " + titles[4]
+			inputBtn = new Layer
+				parent: overlayScroll.content
+				x: (Screen.width/2)+10
+				y: Input.y - 10
+				width: (Screen.width/2)-30
+				height: Input.height
+				backgroundColor: blue
+				html: "Apply"
+				style:
+					"font-family": "Roboto Condensed"
+					"fontWeight":"300"
+					"color": "#ffffff"
+					"text-align": "center"
+					"font-size": "14px"
+					"textTransform":"uppercase"
+					"lineHeight":"100px"
+			blueBox = new Layer
+				parent: overlayScroll.content
+				width: overlayBG.width
+				y: 511 + 10
+				opacity:0
+				height: 70
+				backgroundColor: "#F2F2F2"
+				borderColor: "#f2f2f2"
+				borderWidth: 1
+			blueBox.states.add
+				active:
+					opacity:1
+					y: 511
+			blueText = new TextLayer
+				parent: blueBox
+				x: 20
+				y: Align.center()
+				text: "Blue"
+				fontSize: 14
+				color: blue
+				fontFamily: "Roboto Condensed"
+				fontWeight: 400
+			blueCircle = new Layer
+				parent: blueBox
+				x: Screen.width-50
+				y: Align.center()
+				size: 30
+				borderRadius: 15
+				borderColor: "#183051"
+				borderWidth: 1
+				backgroundColor: ""
+			blueDot = new Layer
+				parent: blueBox
+				x: Screen.width-45
+				y: Align.center() 
+				size: 20
+				borderRadius: 10
+				backgroundColor: "#183051"
+			whiteBox = new Layer
+				parent: overlayScroll.content
+				width: overlayBG.width
+				y: 511 + blueBox.height + 10
+				opacity : 0
+				height: 70
+				backgroundColor: ""
+				borderColor: "#f2f2f2"
+				borderWidth: 1
+			whiteBox.states.add
+				active:
+					opacity:1
+					y: 511 + blueBox.height
+			whiteText = new TextLayer
+				parent: whiteBox
+				x: 20
+				y: Align.center()
+				text: "White"
+				fontSize: 14
+				color: "#999999"
+				fontFamily: "Roboto Condensed"
+				fontWeight: 400
+			whiteCircle = new Layer
+				parent: whiteBox
+				x: Screen.width-50
+				y: Align.center()
+				size: 30
+				borderRadius: 15
+				borderColor: ""
+				borderWidth: 1
+				backgroundColor: "#f2f2f2"
+			whiteDot = new Layer
+				parent: whiteBox
+				x: Screen.width-45
+				y: Align.center() 
+				size: 20
+				borderRadius: 10
+				backgroundColor: ""
+
+			whiteBox.onClick (value, layer) ->
+				blueBox.backgroundColor = ""
+				blueCircle.backgroundColor = "#183051"
+				whiteBox.backgroundColor = "#f2f2f2"
+				whiteCircle.borderColor = "#ffffff"
+				whiteDot.backgroundColor = "#ffffff"
+				text.color = white
+				selections[4].text = Input.value + ", White, " + titles[4]
+			blueBox.onClick (value, layer) ->
+				blueBox.backgroundColor = "#f2f2f2"
+				blueCircle.backgroundColor = ""
+				whiteBox.backgroundColor = ""
+				whiteCircle.borderColor = "#f2f2f2"
+				whiteDot.backgroundColor = ""
+				text.color = blue
+				selections[4].text = Input.value + ", Blue, " + titles[4]
+
+			ignoreParent.stopPropagation()
+			TitleOverlay.visible = true
+			TitleOverlay.states.next("active")
+			Input.states.next("active")
+			blueBox.states.next("active")
+			whiteBox.states.next("active")
+			currentImage = photo.copy()
+			currentImage.parent = overlayScroll.content
+			currentImage.frame = photo.screenFrame
+			currentImage.index = 3
+			currentImage.animate
+				properties:
+					width:375
+					height:375
+					x: 0
+					y: 0
+					options:
+						time: 0.3
+			overlayBG.animate
+				properties:
+					width:375
+					height:667
+					x:0
+					y:0
+					options:
+						time:0.3
+			#Return
+			currentImage.on Events.Click, (ignoreParent) ->
 				ignoreParent.stopPropagation()
-				TitleOverlay.visible = true
-				TitleOverlay.states.next("active")
-				Input.states.next("active")
-				blueBox.states.next("active")
-				whiteBox.states.next("active")
-				currentImage = photo.copy()
-				currentImage.parent = overlayScroll.content
-				currentImage.frame = photo.screenFrame
-				currentImage.index = 3
+				TitleOverlay.visible = false
+				TitleOverlay.states.next("default")
 				currentImage.animate
 					properties:
-						width:375
-						height:375
-						x: 0
-						y: 0
+						width:120
+						height:120
+						photox: photo.screenFrame.x
+						photoy: photo.screenFrame.y
 						options:
 							time: 0.3
 				overlayBG.animate
 					properties:
-						width:375
-						height:667
-						x:0
-						y:0
+						width:265
+						height:120
+						x:background.screenFrame.x
+						y:background.screenFrame.y
 						options:
 							time:0.3
-				#Return
-				currentImage.on Events.Click, (ignoreParent) ->
-					ignoreParent.stopPropagation()
-					TitleOverlay.visible = false
-					TitleOverlay.states.next("default")
-					currentImage.animate
-						properties:
-							width:120
-							height:120
-							photox: photo.screenFrame.x
-							photoy: photo.screenFrame.y
-							options:
-								time: 0.3
-					overlayBG.animate
-						properties:
-							width:265
-							height:120
-							x:background.screenFrame.x
-							y:background.screenFrame.y
-							options:
-								time:0.3
-					this.on Events.AnimationEnd, ->
-						currentImage.destroy()
-						overlayBG.destroy()
-				
-				inputBtn.onClick ->
-					ignoreParent.stopPropagation()
-					TitleOverlay.visible = false
-					TitleOverlay.states.next("default")
-					currentImage.animate
-						properties:
-							width:120
-							height:120
-							photox: photo.screenFrame.x
-							photoy: photo.screenFrame.y
-							options:
-								time: 0.3
-					overlayBG.animate
-						properties:
-							width:265
-							height:120
-							x:background.screenFrame.x
-							y:background.screenFrame.y
-							options:
-								time:0.3
-					currentImage.on Events.AnimationEnd, ->
-						currentImage.destroy()
-						overlayBG.destroy()
-					for cardA in cards
-						@.borderWidth = 1
-						cardA.borderWidth = 0
-					btnNext.backgroundColor = "#183051"
-					btnNextText.color = "white"
-					lists[4].height = 90
-					selections[4].visible = true
-					checkIcons[4].visible = true
-					cardimages[0].image = "images/fronts/monograms/#{i+1}.jpg"
-					cardimages[1].image = "images/sides/monograms/#{i+1}.jpg"
-					cardimages[2].image = "images/backs/monograms/#{i+1}.jpg"
-
-					updateList()
-		monogramContent(scrollMonogram, "monograms", monogramsTitle, monogramsDescription)
+				this.on Events.AnimationEnd, ->
+					currentImage.destroy()
+					overlayBG.destroy()
+			
+			inputBtn.onClick ->
+				ignoreParent.stopPropagation()
+				TitleOverlay.visible = false
+				TitleOverlay.states.next("default")
+				currentImage.animate
+					properties:
+						width:120
+						height:120
+						photox: photo.screenFrame.x
+						photoy: photo.screenFrame.y
+						options:
+							time: 0.3
+				overlayBG.animate
+					properties:
+						width:265
+						height:120
+						x:background.screenFrame.x
+						y:background.screenFrame.y
+						options:
+							time:0.3
+				currentImage.on Events.AnimationEnd, ->
+					currentImage.destroy()
+					overlayBG.destroy()
 
 class Card2 extends Layer
 	constructor: (options={}) ->
@@ -1480,7 +1462,7 @@ class Card2 extends Layer
 				"font-size":"16px"
 				"lineHeight":"1.7"
 				
-			
+				
 
 			
 #Option pages
@@ -1516,7 +1498,7 @@ updateList = ->
 		lists[1].y = 90 + 2
 		lists[2].y = 90 + 60 + 4 + 30
 		lists[3].y = 90 + 60 + 60 + 6 + 30 + 30
-		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30
+		lists[4].y = 90 + 60 + 60 + 60 + 8 + 30 + 30 + 30 + 30
 		btnStartText.text = "Add to bag"
 		btnStartText.x = Align.center()
 		btnNext.backgroundColor = blue
@@ -1753,9 +1735,7 @@ monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescrip
 				x: 10
 				title: "SKIP MONOGRAM"
 			cardB.onClick ->
-				for cardB in cards
-					@.borderWidth = 1
-				lists[4].height = 90
+				flow.showNext(screenB)
 				selections[4].html = "None"
 				selections[4].visible = true
 				checkIcons[4].visible = true
@@ -1774,6 +1754,20 @@ monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescrip
 				photoheight: 120
 				photowidth: 120
 			cards.push(cardA)
+			cardA.onClick ->
+					for cardA in cards
+						@.borderWidth = 1
+						cardA.borderWidth = 0
+					btnNext.backgroundColor = "#183051"
+					btnNextText.color = "white"
+					lists[4].height = 90
+					selections[4].visible = true
+					checkIcons[4].visible = true
+					selections[4].html = value + ", Blue, " + titles[4]
+					cardimages[0].image = "images/fronts/monograms/#{i+1}.jpg"
+					cardimages[1].image = "images/sides/monograms/#{i+1}.jpg"
+					cardimages[2].image = "images/backs/monograms/#{i+1}.jpg"
+					updateList()
 					
 					
 monogramContent(scrollMonogram, "monograms", monogramsTitle, monogramsDescription)

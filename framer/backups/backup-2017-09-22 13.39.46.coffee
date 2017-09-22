@@ -782,7 +782,7 @@ class List extends Layer
 			y: 50
 			html:options.selection
 			backgroundColor:null
-			visible:false #put back to false after changing monogram part
+			visible:true #put back to false after changing monogram part
 			style:
 				"font-size":"14px"
 				"font-weight":"400"
@@ -1178,9 +1178,6 @@ class CardMonogram extends Layer
 			style: 
 				"font-size":"14px"
 				"lineHeight":"1.7"
-		monogramTitle2 = new Layer
-			visible: false
-			html: options.TitleofMonogram
 #Overlay
 		monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescription) ->
 			background.on Events.Click, (ignoreParent) ->
@@ -1259,7 +1256,7 @@ class CardMonogram extends Layer
 				Input.on Events.Input, (value, layer) ->
 					text.text = value
 					text.color = blue
-					selections[4].html = value + ", Blue, " + options.title
+					selections[4].html = value + ", Blue, " + monogramTitle[i]
 				inputBtn = new Layer
 					parent: overlayScroll.content
 					x: (Screen.width/2)+10
@@ -1360,7 +1357,7 @@ class CardMonogram extends Layer
 					whiteCircle.borderColor = "#ffffff"
 					whiteDot.backgroundColor = "#ffffff"
 					text.color = white
-					selections[4].html = Input.value + ", White, " + options.title
+					selections[4].text = Input.value + ", White, " + monogramTitle[i]
 				blueBox.onClick (value, layer) ->
 					blueBox.backgroundColor = "#f2f2f2"
 					blueCircle.backgroundColor = ""
@@ -1368,7 +1365,7 @@ class CardMonogram extends Layer
 					whiteCircle.borderColor = "#f2f2f2"
 					whiteDot.backgroundColor = ""
 					text.color = blue
-					selections[4].html = Input.value + ", Blue, " + options.title
+					selections[4].text = Input.value + ", Blue, " + monogramTitle[i]
 	
 				ignoreParent.stopPropagation()
 				TitleOverlay.visible = true
@@ -1444,19 +1441,6 @@ class CardMonogram extends Layer
 					currentImage.on Events.AnimationEnd, ->
 						currentImage.destroy()
 						overlayBG.destroy()
-					for cardA in cards
-						@.borderWidth = 1
-						cardA.borderWidth = 0
-					btnNext.backgroundColor = "#183051"
-					btnNextText.color = "white"
-					lists[4].height = 90
-					selections[4].visible = true
-					checkIcons[4].visible = true
-					cardimages[0].image = "images/fronts/monograms/#{i+1}.jpg"
-					cardimages[1].image = "images/sides/monograms/#{i+1}.jpg"
-					cardimages[2].image = "images/backs/monograms/#{i+1}.jpg"
-
-					updateList()
 		monogramContent(scrollMonogram, "monograms", monogramsTitle, monogramsDescription)
 
 class Card2 extends Layer
@@ -1774,6 +1758,22 @@ monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescrip
 				photoheight: 120
 				photowidth: 120
 			cards.push(cardA)
+			cardA.onClick ->
+				print "asdf"
+				for cardA in cards
+					@.borderWidth = 1
+					cardA.borderWidth = 0
+					cardB.borderWidth = 0
+				btnNext.backgroundColor = "#183051"
+				btnNextText.color = "white"
+				lists[4].height = 90
+				selections[4].visible = true
+				checkIcons[4].visible = true
+				selections[4].html = value + ", Blue, " + monogramTitle[i]
+				cardimages[0].image = "images/fronts/monograms/#{i+1}.jpg"
+				cardimages[1].image = "images/sides/monograms/#{i+1}.jpg"
+				cardimages[2].image = "images/backs/monograms/#{i+1}.jpg"
+				updateList()
 					
 					
 monogramContent(scrollMonogram, "monograms", monogramsTitle, monogramsDescription)

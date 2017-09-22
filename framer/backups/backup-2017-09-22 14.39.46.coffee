@@ -1184,6 +1184,7 @@ class CardMonogram extends Layer
 #Overlay
 		monogramContent =  (monogramParent, monogramType, monogramTitle, monogramDescription) ->
 			background.on Events.Click, (ignoreParent) ->
+				TitleofMonogram = monogramTitle[i]
 				overlayBG = new Layer
 					x: background.x
 					y: 431
@@ -1259,7 +1260,7 @@ class CardMonogram extends Layer
 				Input.on Events.Input, (value, layer) ->
 					text.text = value
 					text.color = blue
-					selections[4].html = value + ", Blue, " + options.title
+					selections[4].html = value + ", Blue, " + monogramTitle2
 				inputBtn = new Layer
 					parent: overlayScroll.content
 					x: (Screen.width/2)+10
@@ -1360,7 +1361,7 @@ class CardMonogram extends Layer
 					whiteCircle.borderColor = "#ffffff"
 					whiteDot.backgroundColor = "#ffffff"
 					text.color = white
-					selections[4].html = Input.value + ", White, " + options.title
+					selections[4].html = Input.value + ", White, " + monogramTitle2
 				blueBox.onClick (value, layer) ->
 					blueBox.backgroundColor = "#f2f2f2"
 					blueCircle.backgroundColor = ""
@@ -1368,7 +1369,7 @@ class CardMonogram extends Layer
 					whiteCircle.borderColor = "#f2f2f2"
 					whiteDot.backgroundColor = ""
 					text.color = blue
-					selections[4].html = Input.value + ", Blue, " + options.title
+					selections[4].html = Input.value + ", Blue, " + monogramTitle2
 	
 				ignoreParent.stopPropagation()
 				TitleOverlay.visible = true
